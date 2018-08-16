@@ -98,3 +98,6 @@ cwallet.sso.lck### JEnv template
 .jenv-version
 
 .idea/
+**/.gradle
+**/build
+**/gradle
