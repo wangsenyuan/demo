@@ -1,17 +1,21 @@
 package main.common;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Arrays;
 import java.util.List;
 
 public class Table {
     private String name;
     private List<String> columns;
+    private String keyColumn;
 
     public static Table example(String name) {
         List<String> columns = Arrays.asList("a", "b", "c", "e");
         Table table = new Table();
         table.setName(name);
         table.setColumns(columns);
+        table.setKeyColumn("c");
         return table;
     }
 
@@ -69,6 +73,9 @@ public class Table {
         }
         sb.append(" from ");
         sb.append(name);
+        if (StringUtils.isNotEmpty(keyColumn)) {
+            sb.append(" order by ").append(keyColumn).append(" asc ");
+        }
         sb.append(" offset ? limit ? ");
         return sb.toString();
     }
@@ -78,5 +85,13 @@ public class Table {
         sb.append("select count(1) from ");
         sb.append(name);
         return sb.toString();
+    }
+
+    public String getKeyColumn() {
+        return keyColumn;
+    }
+
+    public void setKeyColumn(String keyColumn) {
+        this.keyColumn = keyColumn;
     }
 }
